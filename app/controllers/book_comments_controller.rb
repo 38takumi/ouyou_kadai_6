@@ -2,10 +2,9 @@ class BookCommentsController < ApplicationController
   # before_action :correct_book_comment,only: [:destroy]
   before_action :authenticate_user!
 
-  
-  
   def create
-     @book = Book.find(params[:book_id])
+    @book = Book.find(params[:book_id])
+    @user = current_user
     # 空のコメントを作る
     @book_comment = current_user.book_comments.new(book_comment_params)
     @book_comment.book_id = @book.id
@@ -14,19 +13,20 @@ class BookCommentsController < ApplicationController
   
     # 同じならsave
     if @book_comment.save
-      redirect_to book_path(@book.id)
+      # redirect_to book_path(@book.id)
+      render 'books/show'
     else
       render 'books/show'
     end
-    
   end
   
   def destroy
     # book_commentを特定する
     @book = Book.find(params[:book_id])
+    # @user = current_user
   	book_comment = @book.book_comments.find(params[:id])
     book_comment.destroy
-    redirect_to book_path(@book.id)
+    # redirect_to book_path(@book.id)
     # redirect_to request.referer
   end
   

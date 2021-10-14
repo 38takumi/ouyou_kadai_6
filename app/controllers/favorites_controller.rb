@@ -10,7 +10,7 @@ def create
   favorite.save
   # book詳細ページ、開いていたbookの
   # redirect_to book_path(@book.id)
-  redirect_to request.referer
+  # redirect_to request.referer
 end
 
 def destroy
@@ -18,7 +18,7 @@ def destroy
   favorite = @book.favorites.find_by(user_id: current_user.id)
   favorite.destroy
   # redirect_to book_path(@book.id) 
-  redirect_to request.referer
+  # redirect_to request.referer
 end
 
 end
